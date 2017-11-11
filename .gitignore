@@ -1,0 +1,84 @@
+# Ignore the TODO file
+TODO
+
+# Ignore data directory -- except specified files / directories.
+# The trailing /* after data is significant. http://stackoverflow.com/a/5534865/100904
+data/*
+model/*
+
+# -------------------------------------------------------------------------
+# Ignore all files that generally ought not to be committed into the repo.
+# Never commit sensitive data.
+# Never commit useless files.
+# Try not to commit large files.
+
+# Filenames should NOT have spaces
+* *
+
+# Ignore byte-compiled / optimised / DLL files
+*.py[cod]
+
+# Ignore SQLite3 files. Gramex creates some automatically
+*.db
+*.sqlite3
+*.sqlite3-journal
+
+# Cache folders created by Gramex
+.cache/
+.gramex-compiled/
+
+# Old vis.py used to produce xhtml output. Ignore these
+*.xhtml
+
+# Data files. Try not to commit data into the repo
+*.csv
+*.dat
+*.mdb
+
+# Zip files that aren't read by Pandas
+*.7z
+*.zip
+
+# Documents
+*.doc*
+*.pdf
+*.ppt*
+*.xls*
+
+# Avoid media files
+*.avi
+*.mp*
+*.wmv
+
+# Backup files
+~$*
+*~
+*.bak*
+
+# Sublime-text workspaces, etc
+*.sublime-*
+
+# IPython Notebook checkpoints
+.ipynb_checkpoints
+
+# Typically bash.exe.stackdump on Cygwin
+*.stackdump
+
+# Ignore bower components and npm modules
+node_modules/
+bower_components/
+
+# Windows shortcut files
+*.lnk
+
+# Windows / Mac OS junk files
+Desktop.ini
+$RECYCLE.BIN/
+*[Tt]humbs.db
+*.DS_Store
+
+# R history files
+.RHistory
+
+# Ignore commit.json
+commit.json
