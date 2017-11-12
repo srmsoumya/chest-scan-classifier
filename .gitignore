@@ -3,11 +3,12 @@ TODO
 
 # Ignore data directory -- except specified files / directories.
 # The trailing /* after data is significant. http://stackoverflow.com/a/5534865/100904
-data/
-model/
-!data/Data_Explorer.ipynb
-!data/Inspecting_Images.ipynb
-!data/Split_Data.ipynb
+data/test/*
+data/train/*
+data/validation/*
+data/sample/*
+data/sets/*
+model/*
 
 # -------------------------------------------------------------------------
 # Ignore all files that generally ought not to be committed into the repo.
@@ -19,7 +20,7 @@ model/
 * *
 
 # Ignore byte-compiled / optimised / DLL files
-*.py[cod]
+*.pyc
 
 # Ignore SQLite3 files. Gramex creates some automatically
 *.db
@@ -44,7 +45,6 @@ model/
 
 # Documents
 *.doc*
-*.pdf
 *.ppt*
 *.xls*
 
@@ -62,7 +62,7 @@ model/
 *.sublime-*
 
 # IPython Notebook checkpoints
-.ipynb_checkpoints
+# .ipynb_checkpoints
 
 # Typically bash.exe.stackdump on Cygwin
 *.stackdump
