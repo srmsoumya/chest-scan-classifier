@@ -234,7 +234,10 @@ class ChestScanClassifier(object):
             }
             for file in os.listdir(os.path.join('data/train', d)):
                 img = Image.open(os.path.join('data/train', d, file))
-                prediction = self.predict(img, model)
+                try:
+                    prediction = self.predict(img, model)
+                except:
+                    pass
                 result = sorted(zip(classes, prediction), key=lambda x: x[1], reverse=True)[:5]
                 if d == result[0][0]:
                     eval_matrix_train[d]['top_1'] += 1
@@ -255,7 +258,10 @@ class ChestScanClassifier(object):
             }
             for file in os.listdir(os.path.join('data/validation', d)):
                 img = Image.open(os.path.join('data/validation', d, file))
-                prediction = self.predict(img, model)
+                try:
+                    prediction = self.predict(img, model)
+                except:
+                    pass
                 result = sorted(zip(classes, prediction), key=lambda x: x[1], reverse=True)[:5]
                 if d == result[0][0]:
                     eval_matrix_validation[d]['top_1'] += 1
@@ -278,7 +284,10 @@ class ChestScanClassifier(object):
             }
             for file in os.listdir(os.path.join('data/test', d)):
                 img = Image.open(os.path.join('data/test', d, file))
-                prediction = self.predict(img, model)
+                try:
+                    prediction = self.predict(img, model)
+                except:
+                    pass
                 result = sorted(zip(classes, prediction), key=lambda x: x[1], reverse=True)[:5]
                 if d == result[0][0]:
                     eval_matrix_test[d]['top_1'] += 1
@@ -291,7 +300,7 @@ class ChestScanClassifier(object):
         test_df['top_5_%'] = (test_df['top_5'] / test_df['total']) * 100
         print(test_df.round(2))
 
-        writer = pd.ExcelWriter('/output/evaluation-matrix.xlsx')
+        writer = pd.ExcelWriter('evaluation-matrix.xlsx')
         train_df.to_excel(writer, 'Train')
         validation_df.to_excel(writer, 'Validation')
         test_df.to_excel(writer, 'Test')

@@ -40,3 +40,6 @@ Split_Data.ipynb
 
 Train the model using:
 python scan_classifier.py --train
+
+Evaluate the model:
+python scan_classifier.py --evaluate --model model/chest_scan_classifier_sp.h5

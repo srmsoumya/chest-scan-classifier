@@ -21,7 +21,7 @@ def predict(img, model):
     y = model.predict(x)
     return y[0]
 
-model = load_model('model/chest_scan_classifier_fp.h5')
+model = load_model('model/chest_scan_classifier_sp.h5')
 
 
 class BaseHandler(tornado.web.RequestHandler):
