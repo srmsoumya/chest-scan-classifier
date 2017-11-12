@@ -8,9 +8,10 @@ import pandas as pd
 from PIL import Image
 from pprint import pprint as pp
 
-from keras.applications.inception_v3 import InceptionV3, preprocess_input
+# from keras.applications.inception_v3 import InceptionV3, preprocess_input
+from keras.applications.resnet50 import ResNet50, preprocess_input
 from keras.models import Model, load_model
-from keras.layers import Dense, Dropout, GlobalAveragePooling2D
+from keras.layers import Dense, Dropout, GlobalAveragePooling2D, Flatten
 from keras.preprocessing.image import ImageDataGenerator, img_to_array
 from keras.optimizers import SGD, Adam
 from keras import regularizers
@@ -29,8 +30,8 @@ args = parser.parse_args()
 class ChestScanClassifier(object):
     ''' Initialise the parameters for the model '''
     def __init__(self,
-                 img_size=(299, 299),
-                 num_epochs=30,
+                 img_size=(224, 224),
+                 num_epochs=10,
                  batch_size=32,
                  num_fixed_layers=50,
                  train_dir='data/train',
@@ -57,16 +58,16 @@ class ChestScanClassifier(object):
         print('Test Data Size: {}\n'.format(self.test_size))
 
     def create_base_model(self):
-        model = InceptionV3(weights='imagenet', include_top=False)
+        model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
         for layer in model.layers:
             layer.trainable = False
         return model
 
     def add_custom_layers(self, base_model):
         x = base_model.output
-        x = GlobalAveragePooling2D()(x)
-        x = Dense(1024, activation='relu', kernel_initializer='glorot_uniform', kernel_regularizer=regularizers.l2(0.005))(x)
-        x = Dense(1024, activation='relu', kernel_initializer='glorot_uniform', kernel_regularizer=regularizers.l2(0.005))(x)
+        x = Flatten()(x)
+        x = Dense(512, activation='relu', kernel_initializer='glorot_uniform', kernel_regularizer=regularizers.l2(0.005))(x)
+        x = Dense(512, activation='relu', kernel_initializer='glorot_uniform', kernel_regularizer=regularizers.l2(0.005))(x)
         y = Dense(self.num_classes, activation='softmax')(x)
         model = Model(inputs=base_model.input, outputs=y)
         return model
@@ -159,13 +160,13 @@ class ChestScanClassifier(object):
             callbacks=[cp]
         )
 
-        test_image_gen = ImageDataGenerator(preprocessing_function=preprocess_input)
-        print('\nTesting the model')
-        results = model.evaluate_generator(
-            test_image_gen.flow_from_directory(self.test_dir, target_size=self.img_size, batch_size=self.batch_size, shuffle=False),
-            steps=(self.test_size // self.batch_size) + 1
-        )
-        print('Model: Loss => {}, Accuracy => {}'.format(results[0], results[1]))
+        # test_image_gen = ImageDataGenerator(preprocessing_function=preprocess_input)
+        # print('\nTesting the model')
+        # results = model.evaluate_generator(
+        #     test_image_gen.flow_from_directory(self.test_dir, target_size=self.img_size, batch_size=self.batch_size, shuffle=False),
+        #     steps=(self.test_size // self.batch_size) + 1
+        # )
+        # print('Model: Loss => {}, Accuracy => {}'.format(results[0], results[1]))
 
     def train(self):
         train_image_gen, test_image_gen = self.create_data_generator()
