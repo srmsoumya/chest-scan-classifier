@@ -2,7 +2,7 @@
 
 NIH.gov released the largest database of chest x-ray images. We tried to build a Deep Learning model on top of the Images to predict if a patient has any of the common thorax diseases.
 
-The data was collected and labelled in an approximate way using NLP with 90% accuracy. They tried running object detection on top of it and were able to achieve 60-70% accuracy in predicting the thorax diseases
+The data was collected and labelled in an approximate way using NLP with 90% accuracy. They tried running object detection on top of it and were able to achieve 60-70% accuracy in predicting the thorax diseases. You can look at the results in 1705.02315.pdf.
 
 We took a sample from the entire collection available at https://nihcc.app.box.com/v/ChestXray-NIHCC.
 

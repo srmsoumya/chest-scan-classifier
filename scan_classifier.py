@@ -306,7 +306,7 @@ if __name__ == '__main__':
         print('\nStarting Prediction Phase\n')
         csclf.class_predict(args.cls, args.model)
     elif args.evaluate:
-        species.matrix(args.model)
+        csclf.matrix(args.model)
     else:
         print('Enter a valid argument parser')
 
