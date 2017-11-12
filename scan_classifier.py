@@ -31,8 +31,8 @@ class ChestScanClassifier(object):
     ''' Initialise the parameters for the model '''
     def __init__(self,
                  img_size=(224, 224),
-                 num_epochs=10,
-                 batch_size=32,
+                 num_epochs=15,
+                 batch_size=64,
                  num_fixed_layers=50,
                  train_dir='data/train',
                  validation_dir='data/validation',
@@ -73,13 +73,13 @@ class ChestScanClassifier(object):
         return model
 
     def rebase_base_model(self, model):
-        for layer in model.layers[:self.num_fixed_layers]:
-            layer.trainable = False
-        for layer in model.layers[self.num_fixed_layers:]:
+        # for layer in model.layers[:self.num_fixed_layers]:
+        #     layer.trainable = False
+        for layer in model.layers:
             layer.trainable = True
         return model
 
-    def create_class_weights(self, y, smooth_factor=0.15):
+    def create_class_weights(self, y, smooth_factor=0.2):
         counter = Counter(y)
         if smooth_factor > 0:
             p = max(counter.values()) * smooth_factor
@@ -90,7 +90,7 @@ class ChestScanClassifier(object):
 
     def create_data_generator(self,
                               preprocessing_function=preprocess_input,
-                              rotation_range=4,
+                              rotation_range=1,
                               width_shift_range=0.1,
                               height_shift_range=0.1,
                               shear_range=0.05,
@@ -131,7 +131,7 @@ class ChestScanClassifier(object):
             print('\nLoading the Model for second pass...')
             model = load_model('model/chest_scan_classifier_fp.h5')
             model = self.rebase_base_model(model)
-            adam = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
+            adam = Adam(lr=0.005, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)
             model.compile(optimizer=adam, loss='categorical_crossentropy', metrics=['accuracy'])
             path = 'model/chest_scan_classifier_sp.h5'
 
@@ -153,7 +153,7 @@ class ChestScanClassifier(object):
         model.fit_generator(
             train_gen,
             epochs=self.num_epochs,
-            steps_per_epoch=(self.train_size // self.batch_size),
+            steps_per_epoch=(self.train_size // self.batch_size) + 1,
             validation_data=validation_gen,
             validation_steps=(self.validation_size // self.batch_size) + 1,
             class_weight=weights,
