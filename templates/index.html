@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Recognizer</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <style>
+    a.active { background: #2f3d8a; }
+    div.image-upload { width: 75%; margin: 5rem auto; }
+    .dropzone {
+      border: 2px dashed #0087F7;
+      border-radius: 5px;
+      background: white;
+      padding: 5rem;
+    }
+    .mdl-layout__content {
+      width: 70% !important;
+      margin: 5rem auto !important;
+    }
+    form {
+      margin: 0;
+      padding: 8rem 10rem;
+      display: flex;
+      flex-direction: column;
+      background: rgba(128, 147, 255, 0.71);
+      font-size: 1.5rem !important;
+    }
+    form input {
+      padding: 0.5rem 0rem;
+      font-size: 1.2rem !important;
+    }
+  </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Common Thorax Diseases Recognizer</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation. We hide it in small screens. -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link active" href="">Upload</a>
+            <a class="mdl-navigation__link" href="">Predict</a>
+          </nav>
+        </div>
+      </header>
+      <main class="mdl-layout__content">
+        <div class="image-upload">
+          <form enctype="multipart/form-data" action="/predict" method="POST">
+            <input type="file" name="file">
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </main>
+    </div>
+
+
+  <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+</html>

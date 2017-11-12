@@ -1,4 +1,4 @@
-** Classification of Common Thorax Diseases **
+**Classification of Common Thorax Diseases**
 
 NIH.gov released the largest database of chest x-ray images. We tried to build a Deep Learning model on top of the Images to predict if a patient has any of the common thorax diseases.
 
@@ -6,7 +6,7 @@ The data was collected and labelled in an approximate way using NLP with 90% acc
 
 We took a sample from the entire collection available at https://nihcc.app.box.com/v/ChestXray-NIHCC.
 
-** Dataset Features **
+**Dataset Features**
  - 10000 images
  - 15 Labels
  - Some Images have multiple labels
@@ -31,7 +31,8 @@ Since this was a 24 hour hackathon and we needed to create our own structure in 
 
 Scripts to run
 ==============
-** Preferably use Anaconda and install keras and TF **
+**Preferably use Anaconda and install keras and TF**
+
 Run the ipython notebooks in the following order:
 Data_Explorer.ipynb
 Inspecting_Images.ipynb

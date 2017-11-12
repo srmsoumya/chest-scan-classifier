@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Recognizer</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/min/dropzone.min.css">
+  <style>
+    a.active { background: #2f3d8a; }
+    div.image-upload { width: 75%; margin: 5rem auto; }
+    .dropzone {
+      border: 2px dashed #0087F7;
+      border-radius: 5px;
+      background: white;
+      padding: 5rem;
+    }
+    .text-left { text-align: left !important; }
+    .text-center { text-align: center !important; }
+    .bar {
+      background: orange;
+      padding: 0 0.15rem;
+      color: transparent;
+    }
+    .mdl-layout__content {
+      width: 70% !important;
+      margin: 5rem auto !important;
+    }
+  </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Common Thorax Disease Recognizer</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation. We hide it in small screens. -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <a class="mdl-navigation__link" href="/">Upload</a>
+            <a class="mdl-navigation__link active" href="/predict">Predict</a>
+          </nav>
+        </div>
+      </header>
+      <main class="mdl-layout__content">
+        <div class="main-content">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--4-col">
+              <img src="{{ static_url('uploads/' + file) }}" alt="Image">
+            </div>
+            <div class="mdl-cell mdl-cell--8-col">
+              <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" cellspacing="0" width="100%">
+                <thead>
+                  <tr>
+                    <th class="mdl-cell--3-col text-left">Label</th>
+                    <th class="mdl-cell--4-col text-center"></th>
+                    <th class="mdl-cell--2-col text-right">Probability</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for label, prob in pred %}
+                    <tr>
+                      <td class="mdl-cell--3-col text-left">{{ label }}</td>
+                      <td class="mdl-cell--4-col text-center">
+                        <div class="bar" style="width: {{ (prob * 100) }}%">{{ prob }}</div>
+                      </td>
+                      <td class="mdl-cell--2-col text-right">{{ "{0:.2f}%".format(prob * 100) }}</td>
+                    </tr>
+                  {% end %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+
+  <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+</html>
