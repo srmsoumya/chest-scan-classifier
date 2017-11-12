@@ -31,7 +31,7 @@ class ChestScanClassifier(object):
     ''' Initialise the parameters for the model '''
     def __init__(self,
                  img_size=(224, 224),
-                 num_epochs=15,
+                 num_epochs=30,
                  batch_size=64,
                  num_fixed_layers=50,
                  train_dir='data/train',
